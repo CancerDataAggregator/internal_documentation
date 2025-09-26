@@ -1,6 +1,6 @@
 # CDA-HelpDesk Documentation
 
-- [Infrastructure](https://github.com/CancerDataAggregator/internal_documentation/blob/main/CDA-HelpDesk/Infrastructure.md)
+- [Infrastructure](https://github.com/CancerDataAggregator/internal_documentation/blob/main/CDA-HelpDesk/Infrastructure)
 - [Making Website Changes](https://github.com/CancerDataAggregator/internal_documentation/blob/main/CDA-HelpDesk/Making-Changes.md)
 - [Running the HelpDesk](https://github.com/CancerDataAggregator/internal_documentation/blob/main/CDA-HelpDesk/RunningHelpDesk.md)
 - [As a Testing Tool](https://github.com/CancerDataAggregator/internal_documentation/blob/main/CDA-HelpDesk/HelpDeskForTesting.md)
