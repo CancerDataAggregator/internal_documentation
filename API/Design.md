@@ -2,6 +2,8 @@ cda-api design documentation
 
 High Level Overview:
 
+<img width="1428" height="490" alt="image" src="https://github.com/user-attachments/assets/39ea45e9-5a9d-4549-a5a6-1c589a519652" />
+
 
 General Pipeline: 
 User utilizes cdapython functions to construct a query
