@@ -13,6 +13,7 @@ The website is as automated as possible so it can serve as both the documentatio
 ## Github files
 
 The overall structure of the website repo is based on the requirements of mkdocs, Material, and readthedocs. 
+
 <img width="999" height="637" alt="image" src="https://github.com/user-attachments/assets/b163504f-38e7-4d1b-88e8-f7acfed69c75" />
 
 
