@@ -2,13 +2,19 @@
 
 ## Overview
 
-CDA-HelpDesk is mostly written in the [Markdown](https://www.markdownguide.org/) language, and the files are arranged in a standard folder-per-topic format, [saved in Github](https://github.com/CancerDataAggregator/CDA-HelpDesk). To transform the markdown files into HTML, so they can be published as a website we use a tool called [mkdocs](https://www.mkdocs.org/). We use [Material](https://squidfunk.github.io/mkdocs-material/) for styling and many of the features (toolbars, search, etc) that make the website navigatable. The website is build and hosted at [ReadTheDocs](https://app.readthedocs.org/projects/cda/) on a paid account.
+CDA-HelpDesk is mostly written in the [Markdown](https://www.markdownguide.org/) language, and the files are arranged in a standard folder-per-topic format, [saved in Github](https://github.com/CancerDataAggregator/CDA-HelpDesk). To transform the markdown files into HTML, so they can be published as a website we use a tool called [mkdocs](https://www.mkdocs.org/). We use [Material](https://squidfunk.github.io/mkdocs-material/) for styling and many of the features (toolbars, search, etc) that make the website navigatable. The website is build and hosted at [ReadTheDocs](https://app.readthedocs.org/projects/cda/) on a paid account. All of this is mediated by a service account `cancerdataaggregator` that has its own github account `cda-bot` and email address `cancerdataaggregator@gmail.com`. This account also owns the shared calendar and is the mailing address for the [helpdesk](./RunningHelpDesk.md).
 
 <img width="3224" height="2583" alt="HelpdeskInfrastructure" src="https://github.com/user-attachments/assets/72640eee-336b-44a4-8063-0ab8f32845bd" />
+
+## Build process
+
+The website is as automated as possible so it can serve as both the documentation site and a first pass [testing tool](./HelpDeskForTesting.md). Whenever changes are merged into the main branch, Github notifies readthedocs via a webhook that is tied to the `cancerdataaggregator@gmail.com`. readthedocs then automatically builds a new version of the website from main, and if it builds without errors, replaces the current production site with this new one. If the build fails, cancerdataaggregator@gmail.com will recieve a build failure notice, and someone will need to check readthedocs logs to see what the problem is and fix it.
 
 ## Github files
 
 The overall structure of the website repo is based on the requirements of mkdocs, Material, and readthedocs. 
+<img width="999" height="637" alt="image" src="https://github.com/user-attachments/assets/b163504f-38e7-4d1b-88e8-f7acfed69c75" />
+
 
 ### .github
 
@@ -34,6 +40,4 @@ readthedocs is a rendering and webhosting service. It requires a toplevel file c
 ### requirements
 
 The website is mostly markdown, but also has several pages that are ipython notebooks. As part of building the website, readthedocs creates a virtual machine, loads all the software listed in `requirements.txt` and runs the ipython notebooks into rendered pages. That way they are always up to date.
-
-
 
