@@ -1,4 +1,3 @@
-cda-api design documentation
 
 # High Level Overview:
 
@@ -16,49 +15,54 @@ cda-api design documentation
 
 
 
-How we utilize FastAPI and SQLAlchemy:
-FastAPI
-General Concepts
-Enables us to quickly stand up an API with easy-to-define endpoints
-Leverages Uvicorn to generate a web server that it sits on
-Uses Pydantic for input and output data validation
-Includes easy-to-use integrations with SQLAlchemy
-Automatically generates OpenAPI documentation
-Automatically hosts Swagger (http(s)://API_URL/docs) and ReDoc (http(s)://API_URL/redoc) endpoints
-Associated Files
-cda_api/main.py
-Key Concepts:
-This is base file that contains the core logic that FastAPI uses to generate the API endpoint
-Key Components:
-app = FastAPI()
-This is the root object that FastAPI leverages to start up the api
-app.include_router(...)
-router objects are attached to this to establish the various endpoints
-Each router can also be given custom error codes
-@app.exception_handler(...)
-This is a decorator to create a custom exception handler to have fine-tuned control over formatting error responses
-We are only leveraging a single custom exception handler for all of our errors
-def start_api()
-This is a custom function that Poetry (the python environment/package manager used in cda-api) leverages to start the api in the appropriate environment
-Note: This is currently a temporary fix as the current implementation will be deprecated in some future version of Poetry. The fix was required after a FastAPI update led to issues when deploying in a docker container via the fastapi terminal command
-cda_api/routers/*.py
-Key Concepts:
-The files contained in the routers folder contain the code to define the various API endpoints
-Key Components:
-router = APIRouter(prefix="/BASE_ENDPOINT_PATH", tags=["ENDPOINT_GROUP_TAG"])
-The APIRouter object is used to create groups of endpoint paths
-The “prefix” argument is used to establish what the root path is for the included endpoints
-The “tags” argument is used to organize the various endpoints visually in the Swagger and ReDoc pages
-@router.[get | post](["/" | "/PATH"])
-This is a decorator that sits above a function that will establish the inputs and outputs for the defined endpoint path
-router.get(...) establishes a GET endpoint in the API
-router.post(...) establishes a POST endpoint in the API
-The primary difference between get and post is that post function requires a request_body argument where get function does not
-If the argument is “/” then the associated function is called when directly hitting http(s)://api_uri/BASE_ENDPOINT_PATH
-Note: We could directly add an endpoint to the app rather than adding a router with a single endpoint, but we put all endpoints into a router for consistency in the code
-If the argument is “/ENDPOINT_PATH” then the associated function is called when hitting http(s)://api_uri/BASE_ENDPOINT_PATH/PATH
-def *_endpoint(request: Request, [request_body: REQUEST_BODY_OBJECT | None], [OTHER_ARGUMENT: ARGTYPE = VALUE | NONE] db: Session = Depends(get_db)) -> RETURN_OBJECT
-These decorated functions are called when the associated endpoint is hit
+## How we utilize FastAPI and SQLAlchemy:
+
+### FastAPI
+
+#### General Concepts
+- Enables us to quickly stand up an API with easy-to-define endpoints
+- Leverages Uvicorn to generate a web server that it sits on
+- Uses Pydantic for input and output data validation
+- Includes easy-to-use integrations with SQLAlchemy
+- Automatically generates OpenAPI documentation
+- Automatically hosts Swagger (http(s)://API_URL/docs) and ReDoc (http(s)://API_URL/redoc) endpoints
+#### Associated Files
+***cda_api/main.py***
+
+- Key Concepts:
+  - This is base file that contains the core logic that FastAPI uses to generate the API endpoint
+- Key Components:
+  - `app = FastAPI()`
+    - This is the root object that FastAPI leverages to start up the api
+  - `app.include_router(...)`
+    - router objects are attached to this to establish the various endpoints
+    - Each router can also be given custom error codes
+  - `@app.exception_handler(...)`
+    - This is a decorator to create a custom exception handler to have fine-tuned control over formatting error responses
+    - We are only leveraging a single custom exception handler for all of our errors
+  - `def start_api()`
+    - This is a custom function that Poetry (the python environment/package manager used in cda-api) leverages to start the api in the appropriate environment
+      - Note: This is currently a temporary fix as the current implementation will be deprecated in some future version of Poetry. The fix was required after a FastAPI update led to issues when deploying in a docker container via the fastapi terminal command
+
+***cda_api/routers/*.py***
+
+- Key Concepts:
+  - The files contained in the routers folder contain the code to define the various API endpoints
+- Key Components:
+  - `router = APIRouter(prefix="/BASE_ENDPOINT_PATH", tags=["ENDPOINT_GROUP_TAG"])`
+    - The APIRouter object is used to create groups of endpoint paths
+    - The “prefix” argument is used to establish what the root path is for the included endpoints
+    - The “tags” argument is used to organize the various endpoints visually in the Swagger and ReDoc pages
+  - `@router.[get | post](["/" | "/PATH"])`
+    - This is a decorator that sits above a function that will establish the inputs and outputs for the defined endpoint path
+    - `router.get(...) establishes a GET endpoint in the API
+    - router.post(...) establishes a POST endpoint in the API
+    - The primary difference between get and post is that post function requires a request_body argument where get function does not
+    - If the argument is “/” then the associated function is called when directly hitting http(s)://api_uri/BASE_ENDPOINT_PATH
+      - Note: We could directly add an endpoint to the app rather than adding a router with a single endpoint, but we put all endpoints into a router for consistency in the code
+    - If the argument is “/ENDPOINT_PATH” then the associated function is called when hitting http(s)://api_uri/BASE_ENDPOINT_PATH/PATH
+ ` - def *_endpoint(request: Request, [request_body: REQUEST_BODY_OBJECT | None], [OTHER_ARGUMENT: ARGTYPE = VALUE | NONE] db: Session =     Depends(get_db)) -> RETURN_OBJECT`
+     - These decorated functions are called when the associated endpoint is hit
 Note: All the function arguments and return types must be well defined because FastAPI relies on Pydantic for all inputs and outputs of the endpoints
 The “request: Request” argument is the fastapi.Request object includes information on the HTTP request sent to the endpoint
 If the endpoint is a “post” type, then the “request_body: REQUEST_BODY” is the well defined object class that is built via Pydantic to define the expected components of the json request body passed to the API (These are defined in the /cda_api/classes/models.py file)
