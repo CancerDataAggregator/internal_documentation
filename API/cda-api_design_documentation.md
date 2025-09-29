@@ -1,18 +1,18 @@
 cda-api design documentation
 
-High Level Overview:
+# High Level Overview:
 
 <img width="1428" height="490" alt="image" src="https://github.com/user-attachments/assets/39ea45e9-5a9d-4549-a5a6-1c589a519652" />
 
 
-General Pipeline: 
-User utilizes cdapython functions to construct a query
-cdapython generates an appropriate api call using the constructs defined in cda_client
-The api call is sent to CDA API which is built utilizing FastAPI to manage the various endpoints
-CDA API processes this api call and generates a SQL query via SQLAlchemy
-This query is sent to the CDA Database
-The CDA Database processes this query and returns the resulting data to CDA API
-CDA API structures the results and returns the data to cdapython
+## General Pipeline: 
+1. User utilizes cdapython functions to construct a query
+2. cdapython generates an appropriate api call using the constructs defined in cda_client
+3. The api call is sent to CDA API which is built utilizing FastAPI to manage the various endpoints
+4. CDA API processes this api call and generates a SQL query via SQLAlchemy
+5. This query is sent to the CDA Database
+6. The CDA Database processes this query and returns the resulting data to CDA API
+7. CDA API structures the results and returns the data to cdapython
 
 
 
