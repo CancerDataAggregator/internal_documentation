@@ -117,7 +117,9 @@ The steps for making a change to production are:
    i. click the gear icon next to "Reviewers" and choose one or more people from the list
    <img width="414" height="489" alt="image" src="https://github.com/user-attachments/assets/625cc8d8-6a48-4ccd-91b2-cd85e0ca01e3" />
 
-8. Once the PR has one approval, you can merge it to main.
+8. Once the PR has one approval, you can merge it to main by pushing "Merge pull request"
+   <img width="1037" height="489" alt="image" src="https://github.com/user-attachments/assets/a750b20b-4c33-482c-896b-62a8150ee3e2" />
+
 
 ### Make edits locally
 
