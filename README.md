@@ -3,5 +3,5 @@
 - [API docs](https://github.com/CancerDataAggregator/internal_documentation/tree/main/API)
 - [CDA-HelpDesk docs](https://github.com/CancerDataAggregator/internal_documentation/tree/main/CDA-HelpDesk)
 - [ETL docs](https://github.com/CancerDataAggregator/internal_documentation/tree/main/ETL)
-- [SOP docs](https://github.com/CancerDataAggregator/internal_documentation/tree/main/SOP)
+- [SOP docs](https://github.com/CancerDataAggregator/internal_documentation/tree/main/SOPs)
 - [Testing docs](https://github.com/CancerDataAggregator/internal_documentation/tree/main/Testing)
